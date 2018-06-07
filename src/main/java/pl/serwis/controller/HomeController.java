@@ -1,6 +1,7 @@
 package pl.serwis.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -21,6 +22,8 @@ import java.util.ArrayList;
 public class HomeController {
     @Autowired
     DataSource ds;
+    @Autowired
+    JdbcTemplate jt;
 
     @RequestMapping("/db")
     public String db(Model model) {
@@ -93,5 +96,10 @@ public class HomeController {
     @RequestMapping("/login2")
     public String login() {
         return "login2";
+    }
+
+    @RequestMapping("/devices")
+    public String devices(Model model) {
+        return "devices";
     }
 }
