@@ -15,7 +15,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.
                 inMemoryAuthentication()
-                .withUser("1").password("{noop}1").roles("USER");
+                .withUser("Janusz i Grazyna").password("{noop}1").roles("USER");
     }
 
     @Override
@@ -29,11 +29,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
             .authorizeRequests()
-                .antMatchers("/test1").permitAll()
+                .antMatchers("/index").permitAll()
                 .anyRequest().authenticated()
                 .and()
             .formLogin()
-                .loginPage("/login2")
+                .loginPage("/login")
                 .permitAll()
                 .and()
                 .rememberMe()
@@ -41,7 +41,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .key("elo")
                 .and()
             .logout()
-                .logoutSuccessUrl("/login2")
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/index")
                 .permitAll();
     }
 }

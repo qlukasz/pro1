@@ -18,7 +18,7 @@ public class WebConfig {
     public InternalResourceViewResolver resolver() {
         InternalResourceViewResolver resolver;
         resolver = new InternalResourceViewResolver();
-        resolver.setPrefix("/");
+        resolver.setPrefix("/WEB-INF/jsp/");
         resolver.setSuffix(".jsp");
         return resolver;
     }
@@ -37,3 +37,4 @@ public class WebConfig {
         return new JdbcTemplate(dataSource);
     }
 }
+//31780

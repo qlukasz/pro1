@@ -25,6 +25,31 @@ public class HomeController {
     @Autowired
     JdbcTemplate jt;
 
+    @RequestMapping("/")
+    public String pusty(Model model) {
+        return index(model);
+    }
+
+    @RequestMapping("/index")
+    public String index(Model model) {
+        return "index";
+    }
+
+    @RequestMapping("/login")
+    public String login() {
+        return "login";
+    }
+
+    @RequestMapping("/logout")
+    public String logout(Model model) {
+        return "index";
+    }
+
+    @RequestMapping("/devices")
+    public String devices(Model model) {
+        return "devices";
+    }
+
     @RequestMapping("/db")
     public String db(Model model) {
         ArrayList<String> users = new ArrayList<String>();
@@ -44,62 +69,6 @@ public class HomeController {
             e.printStackTrace();
         }
         model.addAttribute("users", users);
-        return "users";
-    }
-
-
-    @RequestMapping("/")
-    public String asdasd(Model model) {
-        return user(model);
-    }
-
-    @RequestMapping("/user2")
-    public String home22() {
-        return "home";
-    }
-
-    @RequestMapping("/user")
-    public String user(Model model) {
-        User user = new User("a", "v", 10, "adam@gmail.com", 15558.3F);
-        model.addAttribute("user", user);
-        return "user";
-    }
-
-    @RequestMapping("/user_save")
-    public String user33(Model model, @Valid @ModelAttribute("user") User user, BindingResult result) {
-        if (result.hasErrors()) {
-            System.out.println("save: ERROR");
-            model.addAttribute("siema", "chujowo : " + user.getEmail());
-        } else {
-            System.out.println("save:");
-            model.addAttribute("siema", "zapisane: " + user.getEmail());
-        }
-        model.addAttribute("user", user);
-        return "user";
-    }
-
-    @RequestMapping("/test1")
-    public String test1() {
-        return "test1";
-    }
-
-    @RequestMapping("/test1/a")
-    public String test33() {
-        return "test1";
-    }
-
-    @RequestMapping("/test2")
-    public String test2() {
-        return "test2";
-    }
-
-    @RequestMapping("/login2")
-    public String login() {
-        return "login2";
-    }
-
-    @RequestMapping("/devices")
-    public String devices(Model model) {
-        return "devices";
+        return "smieci/users";
     }
 }
