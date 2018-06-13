@@ -97,7 +97,6 @@
         <%--</div>--%>
     </jsp:attribute>
     <jsp:attribute name="footer">
-      <%--<p id="copyright">Copyright 1927</p>--%>
     </jsp:attribute>
     <jsp:body>
         <jsp:doBody/>

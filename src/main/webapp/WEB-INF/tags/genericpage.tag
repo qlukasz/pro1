@@ -3,7 +3,7 @@
 <%@attribute name="footer" fragment="true" %>
 <html>
 <body>
-<div id="pageheader" style="background-color: #EDEDED; padding: 5px 20px">
+<div id="pageheader" style="background-color: #EDEDED; padding: 5px 20px; padding-top:25px;">
     <jsp:invoke fragment="header"/>
 </div>
 <div id="body">
