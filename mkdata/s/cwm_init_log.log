@@ -1,0 +1,11 @@
+
+
+------DMLS TO BE EXECUTED------
+
+CREATE TABLE rent.devices_device_feature(
+	id serial NOT NULL,
+	id_device integer,
+	id_device_feature integer,
+	CONSTRAINT devices_device_feature_id PRIMARY KEY (id)
+	
+);

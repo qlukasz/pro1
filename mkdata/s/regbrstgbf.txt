@@ -1,0 +1,25 @@
+Robie dwie apki niezależne
+1. generator formularzy 
+2. wypozyczalnia sprzetu
+	- logowanie
+	- devices - proste dodawanie czegos z text, radio, select, checkbox 
+	
+	1. devices
+	  id serial NOT NULL,
+	  name character varying(100),
+	  type integer,								NIC		select - koparka ciagnik i tak dalej
+	  inuse boolean NOT NULL,					NIC		checkboxcheckbox pojedynczy
+	  department integer,						NIC		radio
+	  CONSTRAINT devices_id PRIMARY KEY (id)
+  
+  
+		- text
+		- wiele wyborow, lista powiedzmy, wiele checkbox
+		- se
+	
+
+
+
+
+1. Apka, na razie dodawanie rekordow, ale przy wykorzystaniu wszystkich możliwych sposobów, zaczynając od JDBC zwykłego
+2. 

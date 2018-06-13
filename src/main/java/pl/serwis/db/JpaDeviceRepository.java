@@ -25,8 +25,11 @@ public class JpaDeviceRepository implements Database{
     @Override
     public List<Device> getAllDevices2() {
         List<Device> devices = new ArrayList<>();
-        em.createEntityManager().persist(new Device(null,"nowe",3,false,33));
-
+        System.out.println("1");
+        Device device = new Device(null, "nowe", 3, false, 33);
+        System.out.println("2");
+        em.createEntityManager().persist(device);
+        System.out.println("3");
         return null;
     }
 

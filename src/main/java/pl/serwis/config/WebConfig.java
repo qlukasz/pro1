@@ -4,6 +4,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.MediaType;
 import org.springframework.jdbc.core.JdbcOperations;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
@@ -11,7 +12,10 @@ import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
+import org.springframework.web.servlet.ViewResolver;
+import org.springframework.web.servlet.config.annotation.ContentNegotiationConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.view.ContentNegotiatingViewResolver;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import pl.serwis.db.*;
 import pl.serwis.serwis.Serwis;
@@ -23,14 +27,25 @@ import javax.sql.DataSource;
 @EnableWebMvc
 @ComponentScan("pl.serwis")
 public class WebConfig {
+
     @Bean
     public InternalResourceViewResolver resolver() {
+        System.out.println("---------------------------Creating InternalResourceViewResolver");
         InternalResourceViewResolver resolver;
         resolver = new InternalResourceViewResolver();
         resolver.setPrefix("/WEB-INF/jsp/");
         resolver.setSuffix(".jsp");
         return resolver;
     }
+
+
+    @Bean
+    public ViewResolver cnViewResolver() {
+        System.out.println("---------------------------Creating cnViewResolver");
+        return new ContentNegotiatingViewResolver();
+    }
+
+
     @Bean
     public DataSource dataSource() {
         System.out.println("---------------------------Creating dataSource");
@@ -48,41 +63,41 @@ public class WebConfig {
 
     @Bean
     public JpaVendorAdapter jpaVendorAdapter() {
+        System.out.println("---------------------------Creating JpaVendorAdapter");
         HibernateJpaVendorAdapter adapter = new HibernateJpaVendorAdapter();
         adapter.setShowSql(true);
-        adapter.setGenerateDdl(false);
+        adapter.setGenerateDdl(true);
         adapter.setDatabasePlatform("org.hibernate.dialect.HSQLDialect");
+        adapter.setDatabase(org.springframework.orm.jpa.vendor.Database.POSTGRESQL);
         return adapter;
     }
 
-    @Bean
-    public LocalContainerEntityManagerFactoryBean entityManagerFactory(JpaVendorAdapter jpaVendorAdapter) {
-        LocalContainerEntityManagerFactoryBean emfb = new
-                LocalContainerEntityManagerFactoryBean();
-        emfb.setDataSource(dataSource());
-        emfb.setJpaVendorAdapter(jpaVendorAdapter);
-        return emfb;
-    }
-
-
-
-
-
+//    @Bean
+//    public LocalContainerEntityManagerFactoryBean entityManagerFactory(JpaVendorAdapter jpaVendorAdapter) {
+//        System.out.println("---------------------------Creating LocalContainerEntityManagerFactoryBean");
+//        LocalContainerEntityManagerFactoryBean emfb = new
+//                LocalContainerEntityManagerFactoryBean();
+//        emfb.setDataSource(dataSource());
+//        emfb.setJpaVendorAdapter(jpaVendorAdapter);
+//        emfb.setPackagesToScan("pl.serwis.dao");
+//        System.out.println("---------------------------Creating LocalContainerEntityManagerFactoryBean 2");
+//        return emfb;
+//    }
 
 //    @Bean
 //    public Database database(JdbcOperations jdbcOperations)  {
 //        return new DatabaseJDBCTemplate(jdbcOperations);
 //    }
 
-//    @Bean
-//    public Database database(SessionFactory factory)  {
-//        return new DatabaseHibernate(factory);
-//    }
-
     @Bean
-    public Database database()  {
-        return new JpaDeviceRepository();
+    public Database database(SessionFactory factory)  {
+        return new DatabaseHibernate(factory);
     }
+
+//    @Bean
+//    public Database database()  {
+//        return new JpaDeviceRepository();
+//    }
 
     @Bean
     public Serwis serwis(Database database)  {
